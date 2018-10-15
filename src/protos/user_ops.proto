@@ -1,0 +1,46 @@
+syntax = 'proto3';
+
+message User {
+    string id = 1;
+    string name = 2;
+    enum Gender {
+        NA = 0;
+        FEMALE = 1;
+        MALE = 2;
+    }
+    Gender gender = 3;
+}
+
+message CreateUserRequest {
+    User user = 1;
+}
+
+message GetUserRequest {
+    string id = 1;
+}
+
+message UpdateUserRequest {
+    User user = 1;
+}
+
+message DeleteUserRequest {
+    string id = 1;
+}
+
+message UserResponse {
+    User user = 1;
+    enum ResponseStatus {
+        SUCCESS = 0;
+        FAILURE = 1;
+    }
+    ResponseStatus status = 2;
+    string message = 3;
+}
+
+
+service UserOps {
+    rpc create_user (CreateUserRequest) returns (UserResponse) {};
+    rpc get_user    (GetUserRequest)    returns (UserResponse) {};
+    rpc update_user (UpdateUserRequest) returns (UserResponse) {};
+    rpc delete_user (DeleteUserRequest) returns (UserResponse) {};
+}
